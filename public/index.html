@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>ToDo</title>
+</head>
+<body>
+  <h1>ToDo</h1>
+
+  <form id="newTask">
+    <input type="text" name="todo" placeholder="Todo">
+    <select id="category"></select>
+    <button>追加</button>
+  </form>
+
+  <ul id="tasks"></ul>
+
+<script>
+window.addEventListener('load', async ()=>{
+  await renderCategory()
+  await renderTask()
+
+  document.querySelector('#newTask').addEventListener('submit', (e)=>{
+    e.preventDefault()
+    const title = e.target.todo.value
+    const category = e.target.category.value
+    addTask({title, category})
+  })
+})
+
+
+async function addTask(value){
+  const result = await postAPI('task/new', value)
+  if( result.status ){
+    await renderTask()
+  }
+  else{
+    alert(result.message)
+  }
+}
+
+/**
+ * タスク一覧を描画する
+ */
+async function renderTask(){
+  const list = document.querySelector('#tasks');
+  list.innerHTML = ''
+
+  const task = await getAPI('task')
+  task.forEach(task => {
+    const li = document.createElement('li')
+    li.innerHTML = `${task.id} ${task.title} (${task.Category.name})`
+    list.appendChild(li)
+  })
+}
+
+/**
+ * カテゴリー一覧を描画する
+ */
+async function renderCategory(){
+  const category = await getAPI('category')
+
+  category.forEach(item => {
+    const option = document.createElement('option')
+    option.textContent = item.name
+    option.value = item.id
+    document.querySelector('#category').appendChild(option)
+  })
+}
+
+async function getAPI(type){
+  const buff = await fetch(`http://localhost:3000/api/${type}`)
+  return( await buff.json() )
+}
+
+async function postAPI(type, value){
+  const buff = await fetch(`http://localhost:3000/api/${type}`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json; charset=utf-8'
+    },
+    body: JSON.stringify(value)
+  })
+  return( await buff.json() )
+}
+</script>
+</body>
+</html>
