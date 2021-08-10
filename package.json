@@ -1,0 +1,33 @@
+{
+  "name": "sequelize-todo",
+  "version": "1.0.0",
+  "description": "This is an example of a ToDo application that uses sequelize.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/katsube/sequelize-todo.git"
+  },
+  "keywords": [
+    "sequelize",
+    "MySQL",
+    "SQL",
+    "ToDo"
+  ],
+  "author": "M.Katsube",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/katsube/sequelize-todo/issues"
+  },
+  "homepage": "https://github.com/katsube/sequelize-todo#readme",
+  "dependencies": {
+    "dotenv": "^10.0.0",
+    "mysql2": "^2.3.0",
+    "sequelize": "^6.6.5"
+  },
+  "devDependencies": {
+    "sequelize-cli": "^6.2.0"
+  }
+}
