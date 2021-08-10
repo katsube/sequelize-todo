@@ -12,10 +12,6 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: false
       },
-      body: {
-        type: Sequelize.TEXT,
-        allowNull: true
-      },
       done: {
         type: Sequelize.BOOLEAN,
         allowNull: false,

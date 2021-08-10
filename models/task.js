@@ -13,7 +13,6 @@ module.exports = (sequelize, DataTypes) => {
   };
   Task.init({
     title: DataTypes.STRING,
-    body: DataTypes.TEXT,
     done: DataTypes.BOOLEAN
   }, {
     sequelize,
