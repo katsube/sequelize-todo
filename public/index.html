@@ -3,6 +3,10 @@
 <head>
   <meta charset="utf-8">
   <title>ToDo</title>
+  <style>
+    a{ text-decoration: none; }
+    ul{ list-style-type: none; padding-left: 10px; }
+  </style>
 </head>
 <body>
   <h1>ToDo</h1>
@@ -20,6 +24,7 @@ window.addEventListener('load', async ()=>{
   await renderCategory()
   await renderTask()
 
+  setEventTasksList()
   document.querySelector('#newTask').addEventListener('submit', (e)=>{
     e.preventDefault()
     const title = e.target.todo.value
@@ -28,14 +33,72 @@ window.addEventListener('load', async ()=>{
   })
 })
 
+/**
+ * 各種イベントを設定
+ */
+function setEventTasksList(){
+  // チェックボックスをクリック
+  document.querySelectorAll('.done').forEach((el)=>{
+    el.addEventListener('click', (e)=>{
+      e.preventDefault()
+      const id = e.target.getAttribute('data-id')
+      doneTask(id)
+    })
+  })
+  // 削除アイコンをクリック
+  document.querySelectorAll('.remove').forEach((el)=>{
+    el.addEventListener('click', (e)=>{
+      e.preventDefault()
+      if( confirm('本当に削除しますか？') ){
+        const id = e.target.getAttribute('data-id')
+        removeTask(id)
+      }
+    })
+  })
+}
 
+/**
+ * タスクを新規追加
+ *
+ * @param {object} value
+ */
 async function addTask(value){
   const result = await postAPI('task/new', value)
   if( result.status ){
     await renderTask()
   }
   else{
-    alert(result.message)
+    alert('タスクの追加に失敗しました')
+  }
+}
+
+/**
+ * タスクを完了
+ *
+ * @param {number} id
+ */
+async function doneTask(id){
+  const result = await postAPI('task/done', {id})
+  if( result.status ){
+    await renderTask()
+  }
+  else{
+    alert('タスクの更新に失敗しました')
+  }
+}
+
+/**
+ * タスクを物理削除
+ *
+ * @param {number} id
+ */
+async function removeTask(id){
+  const result = await postAPI('task/remove', {id})
+  if( result.status ){
+    await renderTask()
+  }
+  else{
+    alert('タスクの削除に失敗しました')
   }
 }
 
@@ -48,10 +111,13 @@ async function renderTask(){
 
   const task = await getAPI('task')
   task.forEach(task => {
+    const checkbox = task.done? '✔':`<input type="checkbox" class="done" data-id="${task.id}">`
+    const removelink = `<a href="#" class="remove" data-id="${task.id}">✖</a>`
     const li = document.createElement('li')
-    li.innerHTML = `${task.id} ${task.title} (${task.Category.name})`
+    li.innerHTML = `${checkbox} ${task.id} ${task.title} (${task.Category.name}) ${removelink}`
     list.appendChild(li)
   })
+  setEventTasksList()
 }
 
 /**
@@ -68,11 +134,24 @@ async function renderCategory(){
   })
 }
 
+/**
+ * APIを呼び出す(GET)
+ *
+ * @param  {string} type APIの種類
+ * @return {object}
+ */
 async function getAPI(type){
   const buff = await fetch(`http://localhost:3000/api/${type}`)
   return( await buff.json() )
 }
 
+/**
+ * APIを呼び出す(POST)
+ *
+ * @param  {string} type APIの種類
+ * @param  {object} value POSTするデータ
+ * @return {object}
+ */
 async function postAPI(type, value){
   const buff = await fetch(`http://localhost:3000/api/${type}`, {
     method: 'POST',
