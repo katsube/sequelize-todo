@@ -7,7 +7,7 @@ Sequalizeの学習が目的のため実用性は考慮していません。
 1. [Install](#install)
     1. [MySQL](#mysql)
     1. [git clone](#git-clone)
-    1. [Node.js module](#node.js-module)
+    1. [Node.js module](#nodejs-module)
     1. [config](#config)
 1. [Execute](#execute)
 1. [Licence](#licence)
