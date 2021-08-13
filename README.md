@@ -9,6 +9,7 @@ Sequalizeの学習が目的のため実用性は考慮していません。
     1. [git clone](#git-clone)
     1. [Node.js module](#nodejs-module)
     1. [config](#config)
+    1. [migrate](#migrate)
 1. [Execute](#execute)
 1. [Licence](#licence)
 
@@ -32,7 +33,7 @@ $ npm install
 ```
 
 ### config
-MySQLへの接続情報を以下のファイルに記述します。デフォルトはdevelopment環境になっているので、とりあえず動かしたい場合は一番上にある「development」にMySQLへのログインに必要を記入します。
+MySQLへの接続情報を以下のファイルに記述します。デフォルトはdevelopment環境になっているので、とりあえず動かしたい場合は一番上にある「development」にMySQLへのログインに必要を記入します。
 ```shellsession
 $ vi config/config.json
 {
@@ -59,6 +60,17 @@ $ vi config/config.json
   }
 }
 ```
+
+### Migrate
+sequelize-cliを利用し、MySQLへ必要なテーブルを作成、初期データを追加します。
+```shellsession
+$ npx sequelize-cli db:migrate
+$ npx sequelize-cli db:seed:all
+```
+
+以下の2つのテーブルが作成されます。
+![ER](doc/ER/ER.png)
+
 
 ## Execute
 以下のコマンドでWebサーバが3000番のポートで起動します。
