@@ -4,7 +4,7 @@ Node.jsの代表的なORMの一つである「[Sequalize](https://sequelize.org/
 
 Sequalizeの学習が目的のため実用性は考慮していません。
 
-[![YouTube](https://img.youtube.com/vi/dnDxIsu2l_8/0.jpg)](https://www.youtube.com/watch?v=dnDxIsu2l_8)
+[![YouTube](https://img.youtube.com/vi/dnDxIsu2l_8/0.jpg)](https://www.youtube.com/watch?v=dnDxIsu2l_8)  
 <small>※クリックでYouTubeへ移動します</small>
 
 ## Table of Contents
