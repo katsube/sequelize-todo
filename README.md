@@ -1,7 +1,11 @@
 # Sequalize ToDo Sample
+
 Node.jsの代表的なORMの一つである「[Sequalize](https://sequelize.org/master/)」を使ったToDoアプリのサンプルです。DBはMySQLを利用することを前提にしています。
 
 Sequalizeの学習が目的のため実用性は考慮していません。
+
+[![YouTube](https://img.youtube.com/vi/dnDxIsu2l_8/0.jpg)](https://www.youtube.com/watch?v=dnDxIsu2l_8)
+<small>※クリックでYouTubeへ移動します</small>
 
 ## Table of Contents
 1. [Install](#install)
@@ -33,7 +37,7 @@ $ npm install
 ```
 
 ### config
-MySQLへの接続情報を以下のファイルに記述します。デフォルトはdevelopment環境になっているので、とりあえず動かしたい場合は一番上にある「development」にMySQLへのログインに必要を記入します。
+MySQLへの接続情報を以下のファイルに記述します。デフォルトはdevelopment環境になっているので、とりあえず動かしたい場合は一番上にある「development」にMySQLへのログインに必要な情報を記入します。
 ```shellsession
 $ vi config/config.json
 {
@@ -79,7 +83,7 @@ $ node serve.js
 listening at http://localhost:3000
 ```
 
-WebブラウザからアクセスするとTerminal上に表示されているURLへアクセスするとToDoアプリを操作できます。
+Webブラウザから`http://localhost:3000`へアクセスするとToDoアプリを操作できます。
 
 ## Licence
 MIT Licence
